@@ -1,3 +1,16 @@
+#values to be adjusted: 
+# x1 = 0.30 * w   # left
+# x2 = 0.70 * w   # right
+# y1 = 0.50 * h   # top
+# y2 = 0.80 * h   # bottom
+# Rule of thumb:
+
+# Horizontal: bucket width-oda middle 40–50%
+
+# Vertical: bucket depth-oda bottom half
+
+# Green box bucket ulla full-aa irukkanum
+
 import depthai as dai
 import cv2
 import numpy as np

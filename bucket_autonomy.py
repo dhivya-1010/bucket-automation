@@ -82,21 +82,21 @@ def sand_present():
 
     h, w = depthFrame.shape
 
-    # ROI INSIDE BUCKET (TUNE THIS)
-    x1, y1 = int(0.35 * w), int(0.45 * h)
-    x2, y2 = int(0.65 * w), int(0.75 * h)
+    # FINAL ROI (from roi_tuning.py)
+    x1, y1 = int(0.32 * w), int(0.52 * h)
+    x2, y2 = int(0.68 * w), int(0.82 * h)
 
     roi = depthFrame[y1:y2, x1:x2]
     roi = roi[roi > 0]
 
     if len(roi) < 50:
-        print("[VISION] Not enough depth data")
         return False
 
-    depth_variation = np.max(roi) - np.min(roi)
-    print(f"[VISION] Depth variation: {depth_variation} mm")
+    depth_var = np.max(roi) - np.min(roi)
+    print(f"[VISION] Depth variation: {depth_var}")
 
-    return depth_variation > DEPTH_VARIANCE_THRESHOLD
+    return depth_var > DEPTH_VARIANCE_THRESHOLD
+
 
 def bucket_empty():
     return not sand_present()
@@ -163,18 +163,18 @@ try:
             state = State.COMPLETE
 
         elif state == State.COMPLETE:
-            print("\n✅ [AUTONOMY] Bucket cycle completed successfully")
+            print("\n [AUTONOMY] Bucket cycle completed successfully")
             break
 
         elif state == State.ERROR:
-            print("\n❌ [ERROR] Autonomy aborted")
+            print("\n [ERROR] Autonomy aborted")
             send("ABORT")
             break
 
         time.sleep(0.1)
 
 except KeyboardInterrupt:
-    print("\n🚨 [EMERGENCY] User interrupt")
+    print("\n[EMERGENCY] User interrupt")
     send("ABORT")
 
 finally:
