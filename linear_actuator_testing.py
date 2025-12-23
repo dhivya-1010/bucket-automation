@@ -1,3 +1,5 @@
+# dependency to install : pip3 install pyserial
+
 import serial
 import time
 
